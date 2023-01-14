@@ -1,5 +1,4 @@
 import { FiSearch } from 'react-icons/fi';
-import { useEffect, useState } from 'preact/hooks';
 import { FunctionComponent } from 'preact';
 import { Link } from 'react-router-dom';
 

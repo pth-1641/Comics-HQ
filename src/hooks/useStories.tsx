@@ -1,11 +1,10 @@
 import axios from 'axios';
 import { useState, useEffect } from 'preact/hooks';
-import { crawlBaseUrl } from '../constants/env-variables';
-import { NewlyUpdatedStories } from '../types';
-import { compact } from 'lodash';
+import { Story } from '../types';
+import { compact, fromPairs, map } from 'lodash';
 
-export const useLastUpdatedStories = (): NewlyUpdatedStories[] => {
-  const [lastStories, setLastStories] = useState<any>([]);
+export const useStories = (url: string): Story[] => {
+  const [stories, setStories] = useState<any>([]);
 
   useEffect(() => {
     (async () => {
@@ -13,13 +12,13 @@ export const useLastUpdatedStories = (): NewlyUpdatedStories[] => {
         Accept: '*/*',
       };
 
-      let reqOptions = {
-        url: crawlBaseUrl,
+      const reqOptions = {
+        url: url,
         method: 'GET',
         headers: headersList,
       };
 
-      let { data } = await axios.request(reqOptions);
+      const { data } = await axios.request(reqOptions);
       const text = data
         .split('<div class="row">')[2]
         .split('<ul class="pagination">')[0];
@@ -44,7 +43,7 @@ export const useLastUpdatedStories = (): NewlyUpdatedStories[] => {
           (node) => {
             const label = node.querySelector('label')?.textContent;
             const otherNames = label?.includes('Tên khác')
-              ? node.textContent?.split(':')[1]
+              ? node.textContent?.split(':')[1].split(/[,;]/)
               : null;
             const genres = label?.includes('Thể loại')
               ? node.textContent?.split(':')[1].split(', ')
@@ -56,15 +55,18 @@ export const useLastUpdatedStories = (): NewlyUpdatedStories[] => {
               ? node.textContent?.split(':')[1]
               : null;
             return otherNames
-              ? { otherNames }
+              ? { key: 'otherNames', value: otherNames }
               : genres
-              ? { genres }
+              ? { key: 'genres', value: genres }
               : author
-              ? { author }
+              ? { key: 'author', value: author }
               : status
-              ? { status }
+              ? { key: 'status', value: status }
               : null;
           }
+        );
+        const objDetail = fromPairs(
+          map(compact(details), (i) => [i.key, i.value])
         );
         const updatedAt = el
           .querySelector('.message_main p:last-child')
@@ -74,26 +76,27 @@ export const useLastUpdatedStories = (): NewlyUpdatedStories[] => {
           ?.textContent?.replace(/\n/g, '')
           .trim()
           .split('  ');
-
         const isTrending = Boolean(el.querySelector('.icon-hot'));
         return {
           thumbnail,
           views,
           likes,
           title,
-          comments: parseFloat(comments),
+          comments,
           link,
           shortDescription,
-          details: compact(details),
+          ...objDetail,
           updatedAt,
           isTrending,
-          lastestChaper:
-            typeof lastestChapter === 'number' ? parseFloat(lastestChapter) : 0,
+          lastestChapter:
+            typeof lastestChapter !== 'undefined'
+              ? parseFloat(lastestChapter)
+              : 0,
         };
       });
-      setLastStories(lastestUpdatedStories);
+      setStories(lastestUpdatedStories);
     })();
   }, []);
 
-  return lastStories;
+  return stories;
 };
