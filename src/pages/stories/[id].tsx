@@ -1,9 +1,6 @@
+import { first, last } from 'lodash';
 import { FunctionComponent } from 'preact';
-import { Link, useParams } from 'react-router-dom';
-import { useStory } from '../../hooks/useStory';
-import { FaUserTie } from 'react-icons/fa';
-import { crawlBaseUrl } from '../../constants/env-variables';
-import { StoryDetails } from '../../types';
+import { useEffect } from 'preact/hooks';
 import { AiFillInfoCircle } from 'react-icons/ai';
 import {
   BsEyeFill,
@@ -12,17 +9,32 @@ import {
   BsStarFill,
   BsStarHalf,
 } from 'react-icons/bs';
-import { FaStar } from 'react-icons/fa';
-import { first, last } from 'lodash';
-import { useComments } from '../../hooks/useComments';
+import { FaStar, FaUserTie } from 'react-icons/fa';
+import { Link, useParams } from 'react-router-dom';
+import Comments from '../../components/Comments';
+import { crawlBaseUrl } from '../../constants/env-variables';
+import { useStory } from '../../hooks/useStory';
+import { useStore } from '../../stores';
+import { StoryDetails } from '../../types';
 
 const Story: FunctionComponent = () => {
   const { id } = useParams();
-  const story: StoryDetails = useStory(`${crawlBaseUrl}/truyen-tranh/${id}`);
-  const comments = useComments(`${crawlBaseUrl}/truyen-tranh/${id}`);
-  console.log(comments);
 
-  const score = typeof story?.rating !== 'undefined' ? story.rating : 0;
+  const {
+    story,
+    chapterToken,
+    comicId,
+  }: { story: StoryDetails; chapterToken?: string; comicId: number } = useStory(
+    `${crawlBaseUrl}/truyen-tranh/${id}`
+  );
+  const getComic = useStore((state: any) => state.getComic);
+
+  useEffect(() => {
+    getComic({ id: comicId, token: chapterToken });
+  }, [chapterToken]);
+
+  const score =
+    typeof story?.rating !== 'undefined' ? Math.round(story.rating * 2) / 2 : 0;
   const stars: any[] = [];
 
   for (let i = 0; i < 10; i++) {
@@ -32,7 +44,7 @@ const Story: FunctionComponent = () => {
   }
 
   return (
-    <>
+    <div className='max-w-6xl mx-auto'>
       <div className='flex gap-4 text-white'>
         <img
           src={story?.thumbnail}
@@ -48,7 +60,7 @@ const Story: FunctionComponent = () => {
             ))}
           </div>
           <div className='flex gap-1 flex-wrap my-2'>
-            {story?.genres?.map((genre, key) => (
+            {story?.genres?.map((genre, key: number) => (
               <span
                 key={key}
                 className='bg-fuchsia-500 px-2 py-0.5 rounded hover:bg-fuchsia-600 cursor-pointer'
@@ -170,24 +182,9 @@ const Story: FunctionComponent = () => {
           </div>
         </div>
       </div>
-      <h2 className='font-semibold text-2xl mt-6 mb-2'>
-        Tổng số bình luận: {comments?.comments.length}
-      </h2>
-      {/* {comments?.comments.map((comment) => (
-        <div className='flex gap-2'>
-          <img
-            src={comment.avatar}
-            alt={comment.author}
-            draggable={false}
-            className='rounded-full aspect-square h-12 w-12 object-cover'
-          />
-          <div>
-            <h6>{comment.author}</h6>
-            <p>{comment.content}</p>
-          </div>
-        </div>
-      ))} */}
-    </>
+      <div className='py-0.5 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 mb-10 mt-20'></div>
+      <Comments />
+    </div>
   );
 };
 

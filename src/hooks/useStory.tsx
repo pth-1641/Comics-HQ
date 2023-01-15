@@ -4,6 +4,8 @@ import { crawlBaseUrl } from '../constants/env-variables';
 
 export const useStory = (url: string) => {
   const [story, setStory] = useState<any>();
+  const [chapterToken, setChapterToken] = useState<string>();
+  const [comicId, setComicId] = useState<number>(0);
 
   useEffect(() => {
     (async () => {
@@ -18,6 +20,7 @@ export const useStory = (url: string) => {
       };
 
       const { data } = await axios.request(reqOptions);
+      // Detail
       const text = data
         .split('<article id="item-detail">')[1]
         .split('<a class="hidden view-more" href="#">')[0];
@@ -74,7 +77,7 @@ export const useStory = (url: string) => {
             label,
             chapterLink,
             updatedAt,
-            views: typeof views !== 'undefined' ? parseInt(views) : 0,
+            views: views ? parseInt(views) : 0,
           };
         }
       );
@@ -85,18 +88,20 @@ export const useStory = (url: string) => {
         author,
         status,
         genres,
-        totalViews:
-          typeof totalViews !== 'undefined' ? parseInt(totalViews) : 0,
-        totalLikes:
-          typeof totalLikes !== 'undefined' ? parseInt(totalLikes) : 0,
-        totalRating:
-          typeof totalRating !== 'undefined' ? parseInt(totalRating) : 0,
-        rating: typeof rating !== 'undefined' ? parseFloat(rating) * 2 : 0,
+        totalViews: totalViews ? parseInt(totalViews) : 0,
+        totalLikes: totalLikes ? parseInt(totalLikes) : 0,
+        totalRating: totalRating ? parseInt(totalRating) : 0,
+        rating: rating ? parseFloat(rating) * 2 : 0,
         shortDescription,
         chapters,
       });
+      // Comment
+      const token = data.split("key='")[1].split("';")[0];
+      const id = doc.querySelector('.star')?.getAttribute('data-id');
+      setChapterToken(token);
+      setComicId(id ? parseInt(id) : 0);
     })();
   }, []);
 
-  return story;
+  return { story, chapterToken, comicId };
 };

@@ -12,7 +12,7 @@ function ReadChapter() {
 
   return (
     <div className='flex flex-col items-center'>
-      {images?.map((image) => (
+      {images?.map((image: { imgSrc: string }) => (
         <img src={image.imgSrc} alt='' draggable={false} />
       ))}
     </div>

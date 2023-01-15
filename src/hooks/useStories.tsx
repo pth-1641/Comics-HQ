@@ -88,10 +88,7 @@ export const useStories = (url: string): Story[] => {
           ...objDetail,
           updatedAt,
           isTrending,
-          lastestChapter:
-            typeof lastestChapter !== 'undefined'
-              ? parseFloat(lastestChapter)
-              : 0,
+          lastestChapter: lastestChapter ? parseFloat(lastestChapter) : 0,
         };
       });
       setStories(lastestUpdatedStories);

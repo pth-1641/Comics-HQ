@@ -23,7 +23,7 @@ export const useGenres = () => {
 
       const response = await axios.request(reqOptions);
       const parser = new DOMParser();
-      const doc = parser.parseFromString(response.data, 'text/html');
+      const doc: Document = parser.parseFromString(response.data, 'text/html');
       const elements = doc.querySelectorAll(
         '#mainNav > div > div > div > div > ul > li:nth-child(5) > ul > li > div li'
       );

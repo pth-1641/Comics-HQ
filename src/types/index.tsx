@@ -36,3 +36,25 @@ export interface StoryDetails {
     views: number;
   }[];
 }
+
+export interface Reply {
+  author: string;
+  avatar: string;
+  content: string;
+  imgContent: string[];
+  likes: number;
+  dislikes: number;
+  mentionUser: string;
+  time: string;
+}
+
+export interface Comment {
+  author: string;
+  avatar: string;
+  content: string;
+  likes: number;
+  dislikes: number;
+  imgContent: string[];
+  time: string;
+  replies: Reply[];
+}

@@ -5,11 +5,13 @@ import { MdUpdate } from 'react-icons/md';
 import { AiFillInfoCircle } from 'react-icons/ai';
 import { FaUserTie } from 'react-icons/fa';
 import { useEffect, useState } from 'preact/hooks';
+import { useNavigate } from 'react-router-dom';
 
 const DetailModal: FunctionComponent<any> = ({ story }) => {
   const resetDetails = useStore((state: any) => state.resetDetails);
 
   const [show, setShow] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (story) {
@@ -32,8 +34,8 @@ const DetailModal: FunctionComponent<any> = ({ story }) => {
       onClick={handleCloseModal}
     >
       {story ? (
-        <div className='p-4 bg-gray-800 rounded-md max-w-3xl'>
-          <div className='flex gap-3'>
+        <div className='p-4 bg-gray-800 rounded-md max-w-3xl w-11/12'>
+          <div className='flex gap-4 flex-col sm:flex-row items-center'>
             <div className='relative w-1/3 h-max'>
               <img
                 src={story.thumbnail}
@@ -53,7 +55,7 @@ const DetailModal: FunctionComponent<any> = ({ story }) => {
                   : story.lastestChapter}
               </span>
             </div>
-            <div className='w-2/3'>
+            <div className='w-full sm:w-2/3'>
               <h3 className='text-3xl font-semibold mb-2'>{story.title}</h3>
               <div className='flex items-center gap-1 flex-wrap'>
                 {story.genres?.map((genre: string, key: number) => (
@@ -65,7 +67,7 @@ const DetailModal: FunctionComponent<any> = ({ story }) => {
                   </span>
                 ))}
               </div>
-              <div className='flex items-center flex-wrap gap-x-5 mt-2'>
+              <div className='flex items-center flex-wrap gap-x-5 gap-y-1 mt-2'>
                 <p className='flex items-center gap-1'>
                   <span className='text-rose-500'>
                     <BsFillHeartFill />
@@ -102,7 +104,9 @@ const DetailModal: FunctionComponent<any> = ({ story }) => {
                   <span className='text-blue-400'>
                     <AiFillInfoCircle />
                   </span>
-                  {story.status}
+                  {story.status === 'Đang tiến hành'
+                    ? 'Chưa hoàn thành'
+                    : 'Đã hoàn thành'}
                 </p>
               </div>
               {story.otherNames && (
@@ -112,16 +116,29 @@ const DetailModal: FunctionComponent<any> = ({ story }) => {
                   ))}
                 </div>
               )}
-              {story.shortDescription && (
+              {story.shortDescription ? (
                 <p className='border p-1 px-2 mt-1 text-sm'>
                   {story.shortDescription.length > 800
                     ? `${story.shortDescription.slice(0, 800)}...`
                     : story.shortDescription}
                 </p>
+              ) : (
+                <p className='border p-1 px-2 mt-1 text-sm'>
+                  Truyện tranh {story.title} được cập nhật nhanh và đầy đủ nhất
+                  tại ComicsHQ. Bạn đọc đừng quên để lại bình luận và chia sẻ,
+                  ủng hộ ComicsHQ ra các chương mới nhất của truyện{' '}
+                  {story.title}.
+                </p>
               )}
             </div>
           </div>
-          <button className='px-6 py-1 mx-auto mt-5 block border border-emerald-500 hover:bg-emerald-500 duration-200'>
+          <button
+            className='rounded px-6 py-1 mx-auto mt-5 block border border-emerald-500 hover:bg-emerald-500 duration-200'
+            onClick={() => {
+              navigate(`/stories/${story.link}`);
+              resetDetails();
+            }}
+          >
             Đọc ngay
           </button>
         </div>

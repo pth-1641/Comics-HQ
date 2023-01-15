@@ -17,14 +17,13 @@ export const useStoryPics = (url: string) => {
       };
 
       const { data } = await axios.request(reqOptions);
-      console.log(data);
       const text = data
         .split('<div class="reading-detail box_doc">')[1]
         .split('<div class="container">')[0];
       const parser = new DOMParser();
       const doc: Document = parser.parseFromString(text, 'text/html');
       const images = Array.from(doc.querySelectorAll('div.page-chapter')).map(
-        (image) => {
+        (image: Element) => {
           const pageIndex = image
             .querySelector('img')
             ?.getAttribute('data-index');

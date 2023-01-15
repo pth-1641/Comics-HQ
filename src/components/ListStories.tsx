@@ -14,16 +14,16 @@ const ListStories: FunctionComponent<{
     <>
       <h2 className='text-3xl font-bold mb-4 flex justify-between items-end'>
         {title}
-        <span className='text text-emerald-500 underline text-base font-normal'>
+        <span className='text text-emerald-500 text-base font-normal hover:underline'>
           Xem thêm
         </span>
       </h2>
       <div className='flex justify-center gap-y-10 gap-x-4 flex-wrap'>
         {stories.map((story) => (
-          <div className='flex-1' key={story.link}>
+          <div className='flex-1 max-w-[190px]' key={story.link}>
             <div className='rounded-md overflow-hidden relative w-full h-64 aspect-[0.65]'>
               <img
-                className='h-full w-full object-cover'
+                className='w-full h-full object-cover'
                 src={story.thumbnail}
                 alt={story.title}
                 draggable={false}
@@ -72,11 +72,15 @@ const ListStories: FunctionComponent<{
               >
                 Chi tiết
               </button>
-              <button className='rounded bg-purple-500 hover:bg-purple-600 duration-150 text-white w-full py-1'>
-                <Link key={story.link} to={`/stories/${story.link}`}>
+              <Link
+                key={story.link}
+                to={`/stories/${story.link}`}
+                className='w-full'
+              >
+                <button className='rounded bg-purple-500 hover:bg-purple-600 duration-150 text-white w-full py-1'>
                   Đọc ngay
-                </Link>
-              </button>
+                </button>
+              </Link>
             </div>
           </div>
         ))}

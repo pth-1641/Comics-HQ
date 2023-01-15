@@ -8,29 +8,34 @@
   html {
     font-family: 'Nunito', sans-serif;
   }
-}
 
-/* Custom scrollbar */
-/* Thickness */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-/* Track */
-::-webkit-scrollbar-track {
-  border-radius: 10px;
-  background: transparent;
-}
-/* Handle */
-::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  background: rgba(0, 0, 0, 0.6);
-}
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 0, 0, 0.8);
-}
-/* Bottom right square */
-::-webkit-scrollbar-corner {
-  background-color: transparent;
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.6);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.75);
+  }
+
+  ::-webkit-scrollbar-corner {
+    background-color: transparent;
+  }
+
+  input[type='number']::-webkit-outer-spin-button,
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number'] {
+    -webkit-appearance: none;
+    margin: 0;
+    -moz-appearance: textfield !important;
+  }
 }

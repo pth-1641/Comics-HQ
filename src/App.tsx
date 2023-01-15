@@ -7,6 +7,7 @@ import Navbar from './components/Navbar';
 import Home from './pages';
 import Story from './pages/stories/[id]';
 import ReadChapter from './pages/read/[id]';
+import Search from './pages/search';
 
 export const App: FunctionComponent = () => {
   const { key } = useLocation();
@@ -26,6 +27,7 @@ export const App: FunctionComponent = () => {
           <Route path='/' element={<Home />} />
           <Route path='/stories/:id' element={<Story />} />
           <Route path='/read/:name/:chapter/:slug' element={<ReadChapter />} />
+          <Route path='/search' element={<Search />} />
         </Routes>
       </div>
     </>
