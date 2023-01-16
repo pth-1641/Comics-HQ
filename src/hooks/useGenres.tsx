@@ -1,10 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect } from 'preact/hooks';
-import {
-  crawlBaseUrl,
-  thirdPartyName,
-  thirdPartyUrl,
-} from '../constants/env-variables';
+import { crawlBaseUrl } from '../constants/env-variables';
 
 export const useGenres = () => {
   const [genres, setGenres] = useState({});
@@ -13,7 +9,6 @@ export const useGenres = () => {
     (async () => {
       const headersList = {
         Accept: '*/*',
-        'User-Agent': `${thirdPartyName} (${thirdPartyUrl})`,
       };
       const reqOptions = {
         url: crawlBaseUrl,
