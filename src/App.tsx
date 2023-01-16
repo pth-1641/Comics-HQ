@@ -8,6 +8,8 @@ import Home from './pages';
 import Story from './pages/stories/[id]';
 import ReadChapter from './pages/read/[id]';
 import Search from './pages/search';
+import HotStories from './pages/hot-stories';
+import NewlyUpdated from './pages/newly-updated';
 
 export const App: FunctionComponent = () => {
   const { key } = useLocation();
@@ -28,6 +30,8 @@ export const App: FunctionComponent = () => {
           <Route path='/stories/:id' element={<Story />} />
           <Route path='/read/:name/:chapter/:slug' element={<ReadChapter />} />
           <Route path='/search' element={<Search />} />
+          <Route path='/hot-stories' element={<HotStories />} />
+          <Route path='/newly-updated' element={<NewlyUpdated />} />
         </Routes>
       </div>
     </>

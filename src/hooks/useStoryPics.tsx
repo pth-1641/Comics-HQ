@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'preact/hooks';
+import { proxyServer } from '../constants/env-variables';
 
 export const useStoryPics = (url: string) => {
   const [storyPics, setStoryPics] = useState<any>();
@@ -11,7 +12,7 @@ export const useStoryPics = (url: string) => {
       };
 
       const reqOptions = {
-        url: url,
+        url: proxyServer + url,
         method: 'GET',
         headers: headersList,
       };

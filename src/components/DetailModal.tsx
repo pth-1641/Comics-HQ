@@ -117,16 +117,16 @@ const DetailModal: FunctionComponent<any> = ({ story }) => {
                 </div>
               )}
               {story.shortDescription ? (
-                <p className='border p-1 px-2 mt-1 text-sm'>
-                  {story.shortDescription.length > 800
-                    ? `${story.shortDescription.slice(0, 800)}...`
+                <p className='border p-1 px-2 mt-1 text-sm h-max'>
+                  {story.shortDescription.length > 500
+                    ? `${story.shortDescription.slice(0, 500)}...`
                     : story.shortDescription}
                 </p>
               ) : (
                 <p className='border p-1 px-2 mt-1 text-sm'>
                   Truyện tranh {story.title} được cập nhật nhanh và đầy đủ nhất
-                  tại ComicsHQ. Bạn đọc đừng quên để lại bình luận và chia sẻ,
-                  ủng hộ ComicsHQ ra các chương mới nhất của truyện{' '}
+                  tại Comics HQ. Bạn đọc đừng quên để lại bình luận và chia sẻ,
+                  ủng hộ Comics HQ ra các chương mới nhất của truyện{' '}
                   {story.title}.
                 </p>
               )}

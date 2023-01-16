@@ -1,8 +1,8 @@
 import { FunctionComponent } from 'preact';
-import { useSearch } from '../hooks/useSearch';
-import { useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'preact/hooks';
+import { useSearchParams } from 'react-router-dom';
 import ListStories from '../components/ListStories';
+import { useSearch } from '../hooks/useSearch';
 
 const Search: FunctionComponent = () => {
   const [searchParams] = useSearchParams();
@@ -14,7 +14,7 @@ const Search: FunctionComponent = () => {
     getSearchStories(query ? query : '');
   }, [query]);
 
-  const getSearchStories = async (query: string) => {
+  const getSearchStories = async (query?: string) => {
     const { stories, totalPages }: any = await useSearch({ query });
     setSearchStories(stories);
     setTotalPages(totalPages);

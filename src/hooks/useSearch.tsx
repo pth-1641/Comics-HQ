@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { compact, fromPairs, map } from 'lodash';
-import { crawlBaseUrl } from '../constants/env-variables';
+import { crawlBaseUrl, proxyServer } from '../constants/env-variables';
 
 interface Input {
   query?: string;
@@ -15,7 +15,9 @@ export const useSearch = async ({ query, page = 1 }: Input) => {
   };
 
   const reqOptions = {
-    url: `${crawlBaseUrl}/tim-truyen?keyword=${query}&page=${page}`,
+    url: `${
+      proxyServer + crawlBaseUrl
+    }/tim-truyen?keyword=${query}&page=${page}`,
     method: 'GET',
     headers: headersList,
   };
@@ -73,7 +75,6 @@ export const useSearch = async ({ query, page = 1 }: Input) => {
       const objDetail = fromPairs(
         map(compact(details), (i) => [i.key, i.value])
       );
-      //   const totalPages = doc.querySelector('');
       return {
         ...objDetail,
         thumbnail,

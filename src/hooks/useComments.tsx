@@ -1,6 +1,5 @@
 import axios from 'axios';
-import { useEffect, useState } from 'preact/hooks';
-import { crawlBaseUrl } from '../constants/env-variables';
+import { crawlBaseUrl, proxyServer } from '../constants/env-variables';
 
 interface Input {
   id?: string;
@@ -24,7 +23,9 @@ export const useComments = async ({
   };
 
   const reqOptions = {
-    url: `${crawlBaseUrl}/Comic/Services/CommentService.asmx/List?comicId=${id}&orderBy=${orderBy}&chapterId=${chapterId}&parentId=0&pageNumber=${pageNumber}&token=${token}`,
+    url: `${
+      proxyServer + crawlBaseUrl
+    }/Comic/Services/CommentService.asmx/List?comicId=${id}&orderBy=${orderBy}&chapterId=${chapterId}&parentId=0&pageNumber=${pageNumber}&token=${token}`,
     method: 'GET',
     headers: headersList,
   };
@@ -33,9 +34,6 @@ export const useComments = async ({
   const text = data.response;
   const parser = new DOMParser();
   const doc: Document = parser.parseFromString(text, 'text/html');
-  console.log(
-    `${crawlBaseUrl}/Comic/Services/CommentService.asmx/List?comicId=${id}&orderBy=${orderBy}&chapterId=${chapterId}&parentId=0&pageNumber=${pageNumber}&token=${token}`
-  );
   const totalComments = data?.commentCount?.split(',').join('');
   const totalPages = data?.pager?.split('of ')[1].split(' <')[0];
   const comments = Array.from(doc.querySelectorAll('.clearfix')).map(

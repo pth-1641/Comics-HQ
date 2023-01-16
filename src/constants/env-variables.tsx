@@ -1,5 +1,4 @@
 const crawlBaseUrl = import.meta.env.VITE_CRAWL_BASE_URL;
-const thirdPartyUrl = import.meta.env.VITE_THIRD_PARTY_URL;
-const thirdPartyName = import.meta.env.VITE_THIRD_PARTY_NAME;
+const proxyServer = import.meta.env.VITE_PROXY_SERVER;
 
-export { crawlBaseUrl, thirdPartyUrl, thirdPartyName };
+export { crawlBaseUrl, proxyServer };

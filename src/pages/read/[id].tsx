@@ -8,8 +8,6 @@ function ReadChapter() {
     `${crawlBaseUrl}/truyen-tranh/${name}/${chapter}/${slug}`
   );
 
-  console.log(images);
-
   return (
     <div className='flex flex-col items-center'>
       {images?.map((image: { imgSrc: string }) => (

@@ -2,14 +2,9 @@ import { FunctionComponent } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
 import { HiThumbDown, HiThumbUp } from 'react-icons/hi';
 import { useComments } from '../hooks/useComments';
-import { Comment } from '../types';
 import { useStore } from '../stores';
-import {
-  HiChevronDoubleRight,
-  HiChevronRight,
-  HiChevronDoubleLeft,
-  HiChevronLeft,
-} from 'react-icons/hi';
+import { Comment } from '../types';
+
 interface Comments {
   comments: Comment[];
   totalComments: number;
@@ -143,50 +138,6 @@ const Comments: FunctionComponent = () => {
           </div>
         ))}
       </div>
-      <ul className='w-max mx-auto mt-8 flex gap-2 items-stretch'>
-        <li
-          className='text-white px-2 py-1 flex items-center justify-center rounded hover duration-100 text-lg cursor-pointer'
-          onClick={() => getComments(1)}
-        >
-          <HiChevronDoubleLeft />
-        </li>
-        <li
-          className='text-white px-2 py-1 flex items-center justify-center rounded hover duration-100 text-lg cursor-pointer'
-          onClick={() => getComments(pageNumber - 1)}
-        >
-          <HiChevronLeft />
-        </li>
-        <li
-          className='text-white min-w-[2rem] py-1 flex items-center justify-center rounded cursor-pointer bg-blue-500'
-          onClick={() => getComments(pageNumber - 1)}
-        >
-          {pageNumber - 1}
-        </li>
-        <li
-          className='text-white min-w-[2rem] py-1 flex items-center justify-center rounded cursor-pointer'
-          onClick={() => getComments(pageNumber)}
-        >
-          {pageNumber}
-        </li>
-        <li
-          className='text-white min-w-[2rem] py-1 flex items-center justify-center rounded cursor-pointer'
-          onClick={() => getComments(pageNumber + 1)}
-        >
-          {pageNumber + 1}
-        </li>
-        <li
-          className='text-white px-2 py-1 flex items-center justify-center rounded hover duration-100 text-lg cursor-pointer'
-          onClick={() => getComments(pageNumber + 1)}
-        >
-          <HiChevronRight />
-        </li>
-        <li
-          className='text-white px-2 py-1 flex items-center justify-center rounded hover duration-100 text-lg cursor-pointer'
-          onClick={() => getComments(comments ? comments.totalPages : 1)}
-        >
-          <HiChevronDoubleRight />
-        </li>
-      </ul>
     </>
   );
 };

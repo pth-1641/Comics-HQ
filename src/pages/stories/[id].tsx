@@ -126,7 +126,7 @@ const Story: FunctionComponent = () => {
             {story?.totalRating?.toLocaleString()}
           </p>
           <p className='mt-2'>
-            {story?.shortDescription?.replace(/NetTruyen/g, 'ComicsHQ')}
+            {story?.shortDescription?.replace(/NetTruyen/g, 'Comics HQ')}
           </p>
         </div>
       </div>

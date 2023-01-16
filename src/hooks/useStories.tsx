@@ -2,9 +2,13 @@ import axios from 'axios';
 import { useState, useEffect } from 'preact/hooks';
 import { Story } from '../types';
 import { compact, fromPairs, map } from 'lodash';
+import { proxyServer } from '../constants/env-variables';
 
-export const useStories = (url: string): Story[] => {
+export const useStories = (
+  url: string
+): { stories: any; totalPages: number } => {
   const [stories, setStories] = useState<any>([]);
+  const [totalPages, setTotalPages] = useState<number>(0);
 
   useEffect(() => {
     (async () => {
@@ -13,7 +17,7 @@ export const useStories = (url: string): Story[] => {
       };
 
       const reqOptions = {
-        url: url,
+        url: proxyServer + url,
         method: 'GET',
         headers: headersList,
       };
@@ -91,9 +95,18 @@ export const useStories = (url: string): Story[] => {
           lastestChapter: lastestChapter ? parseFloat(lastestChapter) : 0,
         };
       });
+      const pageText = data
+        .split('<ul class="pagination">')[1]
+        .split("<li class='active'>")[0];
+      const pageDoc: Document = parser.parseFromString(pageText, 'text/html');
+      const pageNumber = pageDoc
+        .querySelector('.hidden')
+        ?.textContent?.split('/')[1]
+        .trim();
+      setTotalPages(pageNumber ? parseInt(pageNumber) : 0);
       setStories(lastestUpdatedStories);
     })();
   }, []);
 
-  return stories;
+  return { stories, totalPages };
 };

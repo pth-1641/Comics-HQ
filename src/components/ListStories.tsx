@@ -7,16 +7,21 @@ import { Link } from 'react-router-dom';
 const ListStories: FunctionComponent<{
   title: string;
   stories: Story[];
-}> = ({ stories, title }) => {
+  browseLink?: string;
+}> = ({ stories, title, browseLink }) => {
   const getDetails = useStore((state: any) => state.getDetails);
 
   return (
     <>
       <h2 className='text-3xl font-bold mb-4 flex justify-between items-end'>
         {title}
-        <span className='text text-emerald-500 text-base font-normal hover:underline'>
-          Xem thêm
-        </span>
+        {browseLink && (
+          <Link to={browseLink}>
+            <span className='text text-emerald-500 text-base font-normal hover:underline'>
+              Xem thêm
+            </span>
+          </Link>
+        )}
       </h2>
       <div className='flex justify-center gap-y-10 gap-x-4 flex-wrap'>
         {stories.map((story) => (

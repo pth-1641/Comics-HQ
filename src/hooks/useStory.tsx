@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'preact/hooks';
-import { crawlBaseUrl } from '../constants/env-variables';
+import { crawlBaseUrl, proxyServer } from '../constants/env-variables';
 
 export const useStory = (url: string) => {
   const [story, setStory] = useState<any>();
@@ -14,7 +14,7 @@ export const useStory = (url: string) => {
       };
 
       const reqOptions = {
-        url: url,
+        url: proxyServer + url,
         method: 'GET',
         headers: headersList,
       };
