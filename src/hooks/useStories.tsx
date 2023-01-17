@@ -12,7 +12,7 @@ export const useStories = (
 
   useEffect(() => {
     (async () => {
-      let headersList = {
+      const headersList = {
         Accept: '*/*',
       };
 

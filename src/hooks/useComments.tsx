@@ -18,7 +18,7 @@ export const useComments = async ({
 }: Input) => {
   if (!id && !token) return;
 
-  let headersList = {
+  const headersList = {
     Accept: '*/*',
   };
 

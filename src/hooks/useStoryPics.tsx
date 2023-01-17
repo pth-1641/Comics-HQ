@@ -7,7 +7,7 @@ export const useStoryPics = (url: string) => {
 
   useEffect(() => {
     (async () => {
-      let headersList = {
+      const headersList = {
         Accept: '*/*',
       };
 

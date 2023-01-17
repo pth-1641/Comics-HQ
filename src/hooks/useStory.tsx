@@ -9,7 +9,7 @@ export const useStory = (url: string) => {
 
   useEffect(() => {
     (async () => {
-      let headersList = {
+      const headersList = {
         Accept: '*/*',
       };
 
