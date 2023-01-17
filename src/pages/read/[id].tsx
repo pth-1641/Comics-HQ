@@ -11,10 +11,18 @@ function ReadChapter() {
   return (
     <div className='flex flex-col items-center'>
       {images?.map((image: { imgSrc: string }) => (
-        <img src={image.imgSrc} alt='' draggable={false} />
+        <img
+          src={image.imgSrc}
+          alt=''
+          draggable={false}
+          referrerpolicy='no-referrer'
+        />
       ))}
     </div>
   );
 }
 
 export default ReadChapter;
+
+// https://i221.ntcdntempv3.com/data/images/4638/93999/001-fix.jpg?data=net
+// https://i221.ntcdntempv3.com/data/images/4638/93999/001-fix.jpg?data=net
