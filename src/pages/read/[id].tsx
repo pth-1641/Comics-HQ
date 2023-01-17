@@ -16,25 +16,22 @@ function ReadChapter() {
     (async () => {
       const headersList = {
         Accept: '*/*',
-        Referer: 'https://www.nettruyenup.com/',
+        // Referer: crawlBaseUrl,
       };
       const reqOptions = {
-        url: proxyServer + images[0].imgSrc,
+        url:
+          proxyServer +
+          'https://i221.ntcdntempv3.com/data/images/17696/361803/001.jpg?data=net',
         method: 'GET',
         headers: headersList,
       };
       const res = await axios.request(reqOptions);
-      console.log(res.data);
-      // let headersList = {
-      //   Accept: '*/*',
-      // };
-      // let reqOptions = {
-      //   url: 'https://web-dev.imgix.net/image/admin/cXgqJfmD5OPdzqXl9RNt.jpg?auto=format',
-      //   method: 'GET',
-      //   headers: headersList,
-      // };
-      // let response = await axios.request(reqOptions);
-      // a = response.data;
+      console.log(res);
+
+      // const url = `data:${res.headers['content-type']};base64,${res.data}`;
+      // const a = await fetch(url);
+      // const blob = await a.blob();
+      // console.log(blob);
     })();
   }, [images]);
 
