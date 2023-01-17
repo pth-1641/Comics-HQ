@@ -36,13 +36,13 @@ function ReadChapter() {
       // let response = await axios.request(reqOptions);
       // a = response.data;
     })();
-  }, []);
+  }, [images]);
 
   return (
     <div className='flex flex-col items-center'>
-      {images?.map((image: { imgSrc: string }) => (
-        <img src={proxyServer + image.imgSrc} alt='' draggable={false} />
-      ))}
+      {/* {images?.map((image: { imgSrc: string }) => (
+        <img src={image.imgSrc} alt='' draggable={false} />
+      ))} */}
       <img src={a} alt='' />
     </div>
   );
