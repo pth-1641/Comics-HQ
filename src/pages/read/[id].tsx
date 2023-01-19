@@ -1,8 +1,8 @@
-import { useStoryPics } from '../../hooks/useStoryPics';
-import { crawlBaseUrl, proxyServer } from '../../constants/env-variables';
-import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { useEffect } from 'preact/hooks';
+import { useEffect, useState } from 'preact/hooks';
+import { useParams } from 'react-router-dom';
+import { crawlBaseUrl } from '../../constants/env-variables';
+import { useStoryPics } from '../../hooks/useStoryPics';
 
 function ReadChapter() {
   const { name, chapter, slug } = useParams();
@@ -10,37 +10,30 @@ function ReadChapter() {
     `${crawlBaseUrl}/truyen-tranh/${name}/${chapter}/${slug}`
   );
 
-  let a;
-
   useEffect(() => {
     (async () => {
-      const headersList = {
+      let headersList = {
         Accept: '*/*',
-        // Referer: crawlBaseUrl,
+        Referer: crawlBaseUrl,
       };
-      const reqOptions = {
-        url:
-          proxyServer +
-          'https://i221.ntcdntempv3.com/data/images/17696/361803/001.jpg?data=net',
+
+      let reqOptions = {
+        url: 'https://corsproxy.io/?https://i333.ntcdntempv3.com/data/images/65000/875574/001.jpg',
         method: 'GET',
         headers: headersList,
       };
-      const res = await axios.request(reqOptions);
-      console.log(res);
 
-      // const url = `data:${res.headers['content-type']};base64,${res.data}`;
-      // const a = await fetch(url);
-      // const blob = await a.blob();
-      // console.log(blob);
+      let response = await axios.request(reqOptions);
+      console.log(response.data);
     })();
-  }, [images]);
+  }, []);
 
   return (
     <div className='flex flex-col items-center'>
       {/* {images?.map((image: { imgSrc: string }) => (
         <img src={image.imgSrc} alt='' draggable={false} />
       ))} */}
-      <img src={a} alt='' />
+      <img src='' alt='' />
     </div>
   );
 }

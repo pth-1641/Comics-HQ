@@ -30,7 +30,10 @@ export const useStoryPics = (url: string) => {
             ?.getAttribute('data-index');
           const imgSrc =
             'https:' +
-            image.querySelector('img')?.getAttribute('data-original');
+            image
+              .querySelector('img')
+              ?.getAttribute('data-original')
+              ?.split('?')[0];
           return {
             pageIndex,
             imgSrc,
