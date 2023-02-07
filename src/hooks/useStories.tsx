@@ -1,7 +1,6 @@
 import axios from 'axios';
-import { useState, useEffect } from 'preact/hooks';
-import { Story } from '../types';
 import { compact, fromPairs, map } from 'lodash';
+import { useEffect, useState } from 'preact/hooks';
 import { proxyServer } from '../constants/env-variables';
 
 export const useStories = (

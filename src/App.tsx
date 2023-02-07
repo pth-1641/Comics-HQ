@@ -10,6 +10,9 @@ import ReadChapter from './pages/read/[id]';
 import Search from './pages/search';
 import HotStories from './pages/hot-stories';
 import NewlyUpdated from './pages/newly-updated';
+import Genres from './pages/genres';
+import axios from 'axios';
+import { imageProxyServer } from './constants/env-variables';
 
 export const App: FunctionComponent = () => {
   const { key } = useLocation();
@@ -18,6 +21,13 @@ export const App: FunctionComponent = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [key]);
+
+  useEffect(() => {
+    // Start proxy server
+    (async () => {
+      await axios.get(`${imageProxyServer}?src=`);
+    })();
+  }, []);
 
   return (
     <>
@@ -28,10 +38,11 @@ export const App: FunctionComponent = () => {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/stories/:id' element={<Story />} />
-          <Route path='/read/:name/:chapter/:slug' element={<ReadChapter />} />
+          <Route path='/read/:name/:chapter/:id' element={<ReadChapter />} />
           <Route path='/search' element={<Search />} />
           <Route path='/hot-stories' element={<HotStories />} />
           <Route path='/newly-updated' element={<NewlyUpdated />} />
+          <Route path='/genres' element={<Genres />} />
         </Routes>
       </div>
     </>

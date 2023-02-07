@@ -49,10 +49,10 @@ const Story: FunctionComponent = () => {
         <img
           src={story?.thumbnail}
           alt={story?.title}
-          className='rounded object-cover'
+          className='rounded object-cover aspect-[0.65] h-96'
           draggable={false}
         />
-        <div>
+        <div className='flex-1'>
           <h2 className='text-3xl font-semibold'>{story?.title}</h2>
           <div className='flex text-sm gap-2 text-emerald-500'>
             {story?.otherNames?.map((name) => (

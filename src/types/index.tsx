@@ -58,3 +58,14 @@ export interface Comment {
   time: string;
   replies: Reply[];
 }
+
+export interface Genre {
+  title: string;
+  description: string;
+  link: string;
+}
+
+export interface Sort {
+  title: string;
+  code: number;
+}

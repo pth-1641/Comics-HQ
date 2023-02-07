@@ -3,6 +3,29 @@ import { useRef, useState } from 'preact/hooks';
 import { FiSearch } from 'react-icons/fi';
 import { NavLink, useNavigate } from 'react-router-dom';
 
+const routes = [
+  {
+    label: 'Trang chủ',
+    path: '/',
+  },
+  {
+    label: 'Thể loại',
+    path: '/genres?type=tat-ca&sort=0&status=0',
+  },
+  {
+    label: 'Con trai',
+    path: '/male-stories',
+  },
+  {
+    label: 'Con gái',
+    path: '/female-stories',
+  },
+  {
+    label: 'Lịch sử',
+    path: '/histories',
+  },
+];
+
 const Navbar: FunctionComponent = () => {
   const [searchValue, setSearchValue] = useState('');
   const navigate = useNavigate();
@@ -27,32 +50,16 @@ const Navbar: FunctionComponent = () => {
             </h1>
           </NavLink>
           <ul className='group flex items-center gap-5 text-white'>
-            <NavLink
-              to='/'
-              className={({ isActive }: { isActive: boolean }) =>
-                isActive ? 'underline decoration-2 underline-offset-8' : ''
-              }
-            >
-              Trang chủ
-            </NavLink>
-            <NavLink
-              to='/genres'
-              className={({ isActive }: { isActive: boolean }) =>
-                isActive ? 'underline decoration-2 underline-offset-8 ' : ''
-              }
-            >
-              Thể loại
-              {/* <ul className='absolute top-full bg-black grid grid-cols-2 gap-x-6 gap-y-3 px-4 py-2 duration-200'>
-                {genres?.map((genre) => (
-                  <li
-                    className='w-max hover:text-emerald-300 duration-150'
-                    key={genre}
-                  >
-                    {genre}
-                  </li>
-                ))}
-              </ul> */}
-            </NavLink>
+            {routes.map((route) => (
+              <NavLink
+                to={route.path}
+                className={({ isActive }: { isActive: boolean }) =>
+                  isActive ? 'underline decoration-2 underline-offset-8' : ''
+                }
+              >
+                {route.label}
+              </NavLink>
+            ))}
           </ul>
         </div>
         <form

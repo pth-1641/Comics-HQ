@@ -1,10 +1,15 @@
 import { useStories } from '../hooks/useStories';
 import ListStories from '../components/ListStories';
 import { crawlBaseUrl } from '../constants/env-variables';
+import { useEffect } from 'preact/hooks';
 
 function Home() {
   const hotStories = useStories(`${crawlBaseUrl}/hot`);
   const newlyStories = useStories(crawlBaseUrl);
+
+  useEffect(() => {
+    document.title = 'Trang chủ | Comics HQ';
+  }, []);
 
   return (
     <>

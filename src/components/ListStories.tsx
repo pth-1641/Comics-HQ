@@ -34,7 +34,7 @@ const ListStories: FunctionComponent<{
                 draggable={false}
               />
               {story.isTrending && (
-                <span className='absolute text-white bg-rose-500 font-semibold px-2 py-0.5 rounded text-xs top-2 left-2'>
+                <span className='absolute text-white bg-rose-500 font-semibold px-2 py-0.5 rounded text-xs top-2 left-2 '>
                   HOT
                 </span>
               )}
